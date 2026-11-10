@@ -1,0 +1,269 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Galvanic Skin Resistance (GSR) | Digital Portfolio</title>
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+<div class="progress"><i id="prog"></i></div>
+<header class="top" id="top">
+  <a class="brand" href="#home"><b>GSR</b> Exhibition</a>
+  <button class="burger" id="burger" aria-label="Menu">☰</button>
+  <nav id="menu">
+    <a href="#intro">Intro</a><a href="#principle">Principle</a><a href="#physiology">Physiology</a>
+    <a href="#setup">Setup</a><a href="#blocks">Block Diagram</a><a href="#rc">RC Circuit</a>
+    <a href="#unit">BF017G</a><a href="#compare">Relax vs Stress</a><a href="#apps">Applications</a>
+    <a href="#pros">Pros &amp; Cons</a><a href="#facts">Takeaways</a>
+  </nav>
+</header>
+<aside class="dots" id="dots" aria-hidden="true"></aside>
+
+<section class="hero" id="home">
+  <canvas id="heroCanvas"></canvas>
+  <div class="hero-in">
+    <p class="eyebrow">Digital Scientific Portfolio</p>
+    <h1>Galvanic Skin<br><span>Resistance</span> (GSR)</h1>
+    <p class="sub">Listening to the body's electrical response to emotion</p>
+    <div class="id-card">
+      <div><small>Course Code</small><b>21BMC402J</b></div>
+      <div><small>Subject</small><b>Biomedical Equipment for Clinical Applications</b></div>
+      <div><small>Topic</small><b>Galvanic Skin Resistance (GSR)</b></div>
+      <div><small>Presented by</small><b>Harshini Rajha Sree</b></div>
+      <div><small>Register Number</small><b>RA2311013010033</b></div>
+    </div>
+    <a class="btn" href="#intro">Begin the exhibition ↓</a>
+  </div>
+</section>
+
+<main>
+<!-- 1 -->
+<section id="intro" class="sec">
+  <div class="head"><span>01</span><h2>Introduction to GSR</h2></div>
+  <p class="lead">Galvanic skin resistance is the electrical resistance of the skin. It <b>falls</b> when the sweat glands become more active, making it a simple, non-invasive index of emotional arousal.</p>
+  <div class="stats">
+    <div class="stat"><b data-count="500">0</b><em>kΩ</em><p>upper end of skin resistance range</p></div>
+    <div class="stat"><b data-count="1">0</b><em>kΩ</em><p>lower end of skin resistance range</p></div>
+    <div class="stat"><b data-count="4">0</b><em>variables</em><p>commonly used in biofeedback</p></div>
+  </div>
+  <div class="cards3">
+    <article class="card"><div class="ico">🧠</div><h3>Biofeedback</h3><p>A body variable is measured, compared with a reference and fed back to the subject as a visual or audio signal, so the subject learns self-regulation. It is an educational process, not a treatment.</p></article>
+    <article class="card"><div class="ico">📈</div><h3>Four Variables</h3><p>Electrodermal activity, EMG, temperature and pulse are the variables commonly used in biofeedback. GSR belongs to electrodermal activity.</p></article>
+    <article class="card"><div class="ico">✋</div><h3>Best Measured at</h3><p>Palms and fingers, where the body has its highest concentration of sweat glands (R.S. Khandpur, Table 3.3).</p></article>
+  </div>
+</section>
+
+<!-- 2 -->
+<section id="principle" class="sec alt">
+  <div class="head"><span>02</span><h2>Scientific Principle &amp; Working Mechanism</h2></div>
+  <p class="lead">A constant dc current is passed between an active and a neutral silver electrode. The voltage across the skin is proportional to its resistance, so <b>R = V / I</b> (Ohm's law).</p>
+  <div class="two">
+    <div class="card">
+      <h3>Ohm's Law Explorer</h3>
+      <svg viewBox="0 0 360 150" class="svg">
+        <path class="wire flow" d="M30 75 H110 M250 75 H330 M30 75 V125 H330 V75"/>
+        <circle class="node" cx="60" cy="75" r="20"/><text class="t" x="60" y="80">I</text>
+        <rect class="box" x="110" y="55" width="140" height="40" rx="8"/><text class="t" x="180" y="80" id="ohmR">Skin R</text>
+        <text class="lbl" x="180" y="45">Skin between electrodes</text>
+        <text class="lbl" x="180" y="145">Voltage V measured across skin</text>
+      </svg>
+      <label>Skin resistance R: <b id="ohmRv">100</b> kΩ
+        <input type="range" id="ohmSlider" min="10" max="500" value="100"></label>
+      <div class="readout">I (held constant, illustrative) = 10 µA &nbsp;→&nbsp; <b>V = <span id="ohmV">1.00</span> V</b></div>
+      <p class="note">Because I is constant, the measured V directly tracks R.</p>
+    </div>
+    <div class="card">
+      <h3>BSR and GSR: Slow Baseline + Fast Change</h3>
+      <canvas id="decompCanvas" width="520" height="260"></canvas>
+      <ul class="legend"><li><i style="background:#1565c0"></i><b>BSR</b> basal skin resistance: the average activity of the sweat glands</li>
+      <li><i style="background:#00a6a6"></i><b>GSR</b> galvanic skin response: the quick high and low points caused by a stimulus</li></ul>
+    </div>
+  </div>
+</section>
+
+<!-- 3 -->
+<section id="physiology" class="sec">
+  <div class="head"><span>03</span><h2>Physiology of Sweat Glands &amp; Skin Conductance</h2></div>
+  <p class="lead">Move the slider to raise arousal. Sweat fills the gland duct, the ion-rich fluid conducts better and skin resistance falls.</p>
+  <div class="two">
+    <div class="card">
+      <svg viewBox="0 0 320 340" class="svg skin" aria-label="Skin cross-section">
+        <defs><clipPath id="ductClip"><rect id="ductFill" x="150" y="240" width="20" height="0"/></clipPath></defs>
+        <rect x="10" y="40" width="300" height="50" fill="#f7d7bd"/><text class="lbl" x="20" y="70">Epidermis</text>
+        <rect x="10" y="90" width="300" height="240" fill="#f2b9a0" opacity=".55"/><text class="lbl" x="20" y="320">Dermis</text>
+        <rect x="10" y="20" width="300" height="20" fill="#ecc3a8"/>
+        <path d="M160 40 V240" stroke="#8cc9d4" stroke-width="20" fill="none" opacity=".35" stroke-linecap="round"/>
+        <path d="M160 40 V260" stroke="#00a6a6" stroke-width="12" fill="none" clip-path="url(#ductClip)" stroke-linecap="round"/>
+        <circle cx="160" cy="275" r="32" fill="none" stroke="#1565c0" stroke-width="10" stroke-dasharray="22 8" id="coil"/>
+        <circle cx="160" cy="275" r="14" fill="#1e88e5"/>
+        <path d="M262 330 C262 230 230 180 190 280" stroke="#e8a317" stroke-width="3" fill="none" stroke-dasharray="6 5" class="flow"/>
+        <text class="lbl" x="170" y="35">Pore</text><text class="lbl" x="210" y="130">Sweat duct</text>
+        <text class="lbl" x="200" y="300">Eccrine gland</text><text class="lbl" x="205" y="205" fill="#b9770e">Sympathetic nerve</text>
+      </svg>
+    </div>
+    <div class="card">
+      <label class="big">Arousal level: <b id="arVal">0</b>%<input type="range" id="arSlider" min="0" max="100" value="10"></label>
+      <div class="gauges">
+        <div><small>Sweat in duct</small><div class="bar"><i id="gSweat"></i></div></div>
+        <div><small>Skin conductance</small><div class="bar"><i id="gCond"></i></div></div>
+        <div><small>Skin resistance</small><div class="bar"><i id="gRes" class="rev"></i></div></div>
+      </div>
+      <p class="readout" id="resTxt"></p>
+      <ol class="chain" id="chain">
+        <li>Stimulus<br><small>emotion or effort</small></li>
+        <li>Sympathetic<br><small>nerve signal</small></li>
+        <li>Eccrine gland<br><small>activates</small></li>
+        <li>Sweat rises<br><small>in the duct</small></li>
+        <li>Resistance<br><small>falls</small></li>
+      </ol>
+      <p class="note">Illustrative model (60 to 300 kΩ) to show the trend, not measured data.</p>
+    </div>
+  </div>
+</section>
+
+<!-- 4 -->
+<section id="setup" class="sec alt">
+  <div class="head"><span>04</span><h2>GSR Measurement Setup &amp; Finger Electrodes</h2></div>
+  <p class="lead">Surface electrodes, similar to ECG electrodes, sit on the fingers or on the palm and wrist. Tap a hotspot to explore.</p>
+  <div class="two">
+    <div class="card">
+      <svg viewBox="0 0 440 300" class="svg" aria-label="Finger electrodes and setup">
+        <rect x="10" y="230" width="190" height="30" rx="8" class="box"/><text class="lbl" x="105" y="250" text-anchor="middle">Arm rest</text>
+        <rect x="45" y="80" width="46" height="150" rx="23" fill="#f3cfb3" stroke="#d9a98a"/>
+        <rect x="105" y="60" width="46" height="170" rx="23" fill="#f3cfb3" stroke="#d9a98a"/>
+        <rect x="21" y="150" width="130" height="95" rx="40" fill="#f3cfb3" stroke="#d9a98a"/>
+        <g class="hot" data-i="0"><rect x="40" y="108" width="56" height="20" rx="5" fill="#00a6a6"/></g>
+        <g class="hot" data-i="1"><rect x="100" y="90" width="56" height="20" rx="5" fill="#1565c0"/></g>
+        <g class="hot" data-i="2"><path class="wire" d="M68 118 V40 H250 V110 M128 100 V50 H250"/><circle cx="250" cy="115" r="9" fill="#e8a317"/></g>
+        <g class="hot" data-i="3"><rect x="250" y="110" width="170" height="130" rx="14" class="box"/>
+          <rect x="266" y="126" width="100" height="32" rx="5" fill="#0e2a3f"/><text x="316" y="149" text-anchor="middle" fill="#37f0d3" font-family="monospace" font-size="18">0000 kΩ</text>
+          <circle cx="388" cy="142" r="12" fill="#cfe4f2" stroke="#1e88e5"/><circle cx="388" cy="188" r="12" fill="#cfe4f2" stroke="#1e88e5"/><circle cx="330" cy="205" r="12" fill="#cfe4f2" stroke="#1e88e5"/>
+          <text class="lbl" x="335" y="232" text-anchor="middle">BF017G unit</text></g>
+        <text class="lbl" x="45" y="75">Index</text><text class="lbl" x="115" y="55">Middle</text>
+      </svg>
+    </div>
+    <div class="card info" id="setupInfo"><h3>Select a part</h3><p>Click the electrodes, cable or unit in the diagram.</p></div>
+  </div>
+  <div class="cards3">
+    <article class="card"><div class="ico">🥈</div><h3>Silver electrodes</h3><p>An active and a neutral silver electrode carry the dc current through the skin.</p></article>
+    <article class="card"><div class="ico">🎯</div><h3>Consistency</h3><p>Same hand, same site and same pressure keep contact resistance steady.</p></article>
+    <article class="card"><div class="ico">🔌</div><h3>Input cable</h3><p>The electrode cable plugs into the INPUT socket of the biofeedback unit.</p></article>
+  </div>
+</section>
+
+<!-- 5 -->
+<section id="blocks" class="sec">
+  <div class="head"><span>05</span><h2>Instrumentation Block Diagram</h2></div>
+  <p class="lead">Basal skin resistance (BSR) and galvanic skin response (GSR) are measured on two paths. Select a block to learn its role.</p>
+  <div class="card">
+    <svg viewBox="0 0 880 270" class="svg" aria-label="GSR block diagram">
+      <defs><marker id="ar" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto"><path d="M0 0L10 5L0 10z" fill="#1565c0"/></marker></defs>
+      <g class="wire flow" marker-end="url(#ar)"><path d="M155 90 H195"/><path d="M335 90 H385"/><path d="M525 90 H565"/><path d="M455 120 V200 H565"/><path d="M705 200 H735"/><path d="M790 170 V122"/></g>
+      <g class="blk" data-i="0"><rect class="box" x="20" y="60" width="135" height="60" rx="10"/><text class="t" x="88" y="87">Active &amp; Neutral</text><text class="t" x="88" y="105">Electrodes</text></g>
+      <g class="blk" data-i="1"><rect class="box" x="195" y="60" width="140" height="60" rx="10"/><text class="t" x="265" y="95">dc Current Source</text></g>
+      <g class="blk" data-i="2"><rect class="box" x="385" y="60" width="140" height="60" rx="10"/><text class="t" x="455" y="95">Amplifier A1</text></g>
+      <g class="blk" data-i="3"><rect class="box acc" x="565" y="60" width="140" height="60" rx="10"/><text class="t" x="635" y="95">BSR Meter</text></g>
+      <g class="blk" data-i="4"><rect class="box" x="565" y="170" width="140" height="60" rx="10"/><text class="t" x="635" y="205">C &amp; R Network</text></g>
+      <g class="blk" data-i="5"><rect class="box" x="735" y="170" width="120" height="60" rx="10"/><text class="t" x="795" y="205">Amplifier A2</text></g>
+      <g class="blk" data-i="6"><rect class="box acc" x="735" y="60" width="120" height="60" rx="10"/><text class="t" x="795" y="95">GSR Meter</text></g>
+      <text class="lbl" x="20" y="260">Top path: baseline (BSR) · Bottom path: quick change (GSR)</text>
+    </svg>
+    <div class="info" id="blkInfo"><h3>Select a block</h3><p>Each block has a distinct function in separating baseline from response.</p></div>
+  </div>
+</section>
+
+<!-- 6 -->
+<section id="rc" class="sec alt">
+  <div class="head"><span>06</span><h2>RC Circuit &amp; Signal Processing</h2></div>
+  <p class="lead">The BSR output passes through an RC network with a time constant of <b>3 to 5 seconds</b>. The slow baseline is blocked and only the rapid change, the GSR, reaches amplifier A2 and its meter.</p>
+  <div class="two">
+    <div class="card">
+      <svg viewBox="0 0 400 190" class="svg" aria-label="RC circuit">
+        <path class="wire flow" d="M20 80 H100 M150 80 H260 M200 80 V120 M200 150 V170 H20"/>
+        <rect class="box" x="100" y="68" width="50" height="24" rx="4"/><text class="t" x="125" y="85">C</text>
+        <rect class="box" x="185" y="120" width="30" height="30" rx="4"/><text class="t" x="200" y="140">R</text>
+        <path class="wire" d="M260 55 V105 L320 80 Z"/><text class="t" x="276" y="84">A2</text>
+        <text class="lbl" x="20" y="60">From A1 (BSR + GSR)</text><text class="lbl" x="228" y="140">to ground</text>
+        <text class="lbl" x="330" y="84">→ GSR meter</text>
+        <text class="t" x="200" y="20">τ = R × C = 3 to 5 s</text>
+      </svg>
+      <label>Time constant τ: <b id="tauV">4.0</b> s<input type="range" id="tauSlider" min="3" max="5" step="0.1" value="4"></label>
+    </div>
+    <div class="card">
+      <canvas id="rcCanvas" width="520" height="300"></canvas>
+      <ul class="legend"><li><i style="background:#1565c0"></i>Input from A1: slow drift + quick responses</li><li><i style="background:#00a6a6"></i>After C–R: baseline blocked, only quick change passes</li></ul>
+    </div>
+  </div>
+</section>
+
+<!-- 7 -->
+<section id="unit" class="sec">
+  <div class="head"><span>07</span><h2>GSR Biofeedback Unit (BF017G)</h2></div>
+  <p class="lead">LM Health Care model BF017G: a 4-digit kΩ display, a bar of <b>11 green (relax)</b> and <b>5 red (tense)</b> LEDs, and an audio output.</p>
+  <div class="unit">
+    <div class="unit-top">
+      <div class="seg" id="modeSeg"><button class="on" data-m="relax">😌 Relax</button><button data-m="stress">😣 Stress</button></div>
+      <div class="seg" id="swSeg"><button data-s="basal">BASAL</button><button class="on" data-s="actual">ACTUAL</button></div>
+    </div>
+    <div class="lcd"><span id="lcd">0000</span><em>kΩ</em></div>
+    <div class="leds" id="leds"></div>
+    <div class="ledlbl"><span>Relax · 11 green</span><span id="uState">RELAX</span><span>Tense · 5 red</span></div>
+    <div class="knobs">
+      <label>Sensitivity <b id="sensV">5</b><input type="range" id="sens" min="1" max="10" value="5"></label>
+      <button class="btn small" id="audioBtn">🔇 Volume: Off</button>
+      <div class="tone"><div class="bars" id="toneBars"></div><b id="toneTxt">muted</b></div>
+    </div>
+    <p class="note light">Controls on the real unit: ACTUAL/BASAL switch, sensitivity, level, balance and volume. Readings here come from an illustrative model.</p>
+  </div>
+</section>
+
+<!-- 8 -->
+<section id="compare" class="sec alt">
+  <div class="head"><span>08</span><h2>Relaxation vs Stress: Visual Comparison</h2></div>
+  <p class="lead">When relaxed, sweat gland activity falls and resistance <b>rises</b>. When tense or excited, sweating increases and resistance <b>falls</b>.</p>
+  <div class="two">
+    <div class="card cmp relax"><h3>😌 Relaxed</h3><canvas id="cvRelax" width="420" height="200"></canvas>
+      <ul><li>Sweat gland activity: <b>low</b></li><li>Skin resistance: <b>high</b></li><li>LEDs: <b class="g">green bar</b></li><li>Audio tone: <b>low pitch</b></li></ul></div>
+    <div class="card cmp stress"><h3>😣 Tense</h3><canvas id="cvStress" width="420" height="200"></canvas>
+      <ul><li>Sweat gland activity: <b>high</b></li><li>Skin resistance: <b>low</b></li><li>LEDs: <b class="r">red lit</b></li><li>Audio tone: <b>high pitch</b></li></ul></div>
+  </div>
+  <div class="card scrub">
+    <label class="big">Scrub from relaxed to tense<input type="range" id="scrub" min="0" max="100" value="0"></label>
+    <div class="scrub-row"><div class="pill" id="sR">–</div><div class="pill" id="sS">–</div><div class="pill" id="sL">–</div><div class="pill" id="sT">–</div></div>
+  </div>
+</section>
+
+<!-- 9 -->
+<section id="apps" class="sec">
+  <div class="head"><span>09</span><h2>Applications</h2></div>
+  <div class="tabs" id="tabs"><button class="on" data-t="0">🏥 Healthcare</button><button data-t="1">🧩 Psychology</button><button data-t="2">🔬 Biomedical Research</button></div>
+  <div class="cards3" id="tabBody"></div>
+</section>
+
+<!-- 10 -->
+<section id="pros" class="sec alt">
+  <div class="head"><span>10</span><h2>Advantages &amp; Limitations</h2></div>
+  <div class="two">
+    <div class="card good"><h3>✔ Advantages</h3><ul class="tick" id="advList"></ul></div>
+    <div class="card bad"><h3>⚠ Limitations</h3><ul class="tick" id="limList"></ul></div>
+  </div>
+</section>
+
+<!-- 11 -->
+<section id="facts" class="sec">
+  <div class="head"><span>11</span><h2>Interesting Facts &amp; Key Takeaways</h2></div>
+  <p class="note">Tap a card to flip it.</p>
+  <div class="flips" id="flips"></div>
+  <div class="card take"><h3>Key Takeaways</h3><ol id="takeList"></ol></div>
+</section>
+</main>
+
+<footer>
+  <b>Harshini Rajha Sree</b> · RA2311013010033<br>21BMC402J · Biomedical Equipment for Clinical Applications<br>
+  <small>Reference: R.S. Khandpur, Handbook of Biomedical Instrumentation</small>
+</footer>
+<button class="totop" id="toTop" aria-label="Back to top">↑</button>
+<script src="script.js"></script>
+</body>
+</html>
